@@ -1,6 +1,8 @@
 'use strict';
 
+// Edit repo provided mysql_config-example.json and rename to mysql_config.json
 var mysqlconf = require('./mysql_config.json');
+
 var mysql = require('mysql');
 var connection = mysql.createConnection({
   host      : mysqlconf.host,
