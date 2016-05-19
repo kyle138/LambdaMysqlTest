@@ -1,0 +1,19 @@
+{
+  "name": "mysqltest",
+  "version": "1.0.0",
+  "description": "Testing MySQL RDS connection from Lambda.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyle138/LambdaMysqlTest.git"
+  },
+  "author": "kyle138",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kyle138/LambdaMysqlTest/issues"
+  },
+  "homepage": "https://github.com/kyle138/LambdaMysqlTest#readme"
+}
