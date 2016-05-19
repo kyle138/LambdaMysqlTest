@@ -15,12 +15,12 @@ var connection = mysql.createConnection({
 exports.handler = (event, context, callback) => {
     console.log('Loading Lambda Function');
 
-    console.log('Received event:', JSON.stringify(event, null, 2));   //DEBUG
+    console.log('Received event: ', JSON.stringify(event, null, 2));   //DEBUG
 
     // Connect to MySQL
     connection.connect(function(err) {
       if(err) {
-        console.log("DB Connection error"+err);
+        console.log("DB Connection error:: "+err);
         context.fail();
       } else {
         console.log("DB Connected.");
@@ -30,7 +30,7 @@ exports.handler = (event, context, callback) => {
     // Query the DB. 'SHOW TABLES' used simply to test connetivity.
     connection.query('SHOW TABLES', function (err, results, fields) {
       if(err) {
-        console.log("DB Query error"+err);
+        console.log("DB Query error:: "+err);
       } else {
         console.log("Results: "+JSON.stringify(results, null, 2));
       }
@@ -39,8 +39,8 @@ exports.handler = (event, context, callback) => {
     // Close MySQL connection
     connection.end(function(err) {
       if(err) {
-        console.log("DB connection.end failed");
-        contextfail();
+        console.log("DB connection.end failed:: "+err);
+        context.fail();
       } else {
         console.log("DB Connected ended.");
         context.done();
