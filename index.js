@@ -12,6 +12,8 @@ var connection = mysql.createConnection({
   database  : mysqlconf.database
 });
 
+var numTables;
+
 exports.handler = (event, context, callback) => {
     console.log('Loading Lambda Function');
 
@@ -43,8 +45,9 @@ exports.handler = (event, context, callback) => {
           if(err) {
             console.log("DB Query error:: "+err);
           } else {
-            console.log("Tables found: "+results.length);
-            console.log("Results: "+JSON.stringify(results, null, 2));
+            numTables = results.length;
+            console.log("Tables found: "+numTables);
+//            console.log("Results: "+JSON.stringify(results, null, 2));
             callback(null);
           }
         });
