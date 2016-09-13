@@ -12,41 +12,64 @@ var connection = mysql.createConnection({
   database  : mysqlconf.database
 });
 
-exports.handler = (event, context, callback) => {
+//exports.handler = (event, context, callback) => {
     console.log('Loading Lambda Function');
 
-    console.log('Received event: ', JSON.stringify(event, null, 2));   //DEBUG
+//    console.log('Received event: ', JSON.stringify(event, null, 2));   //DEBUG
 
     // Connect to MySQL
-    connection.connect(function(err) {
+    function connectDB(err, callback) {
       if(err) {
-        console.log("DB Connection error:: "+err);
-        context.fail();
+      console.error("connectDB error: "+err);
       } else {
-        console.log("DB Connected.");
+        connection.connect(function(err) {
+          if(err) {
+            console.log("DB Connection error:: "+err);
+            //context.fail();
+          } else {
+            console.log("DB Connected.");
+            callback(null, endDB);
+          }
+        });
       }
-    });
+    }
 
     // Query the DB. 'SHOW TABLES' used simply to test connetivity.
-    connection.query('SHOW TABLES', function (err, results, fields) {
+    function queryDB(err, callback) {
       if(err) {
-        console.log("DB Query error:: "+err);
+        console.error("queryDB error: "+err);
       } else {
-        console.log("Results: "+JSON.stringify(results, null, 2));
+        connection.query('SHOW TABLES', function (err, results, fields) {
+          if(err) {
+            console.log("DB Query error:: "+err);
+          } else {
+            console.log("Results: "+JSON.stringify(results, null, 2));
+            callback(null);
+          }
+        });
       }
-    });
+    }
 
     // Close MySQL connection
-    connection.end(function(err) {
+    function endDB(err, callback) {
       if(err) {
-        console.log("DB connection.end failed:: "+err);
-        context.fail();
+        console.error("endDB error: "+err);
       } else {
-        console.log("DB Connected ended.");
-        context.done();
+        connection.end(function(err) {
+          if(err) {
+            console.log("DB connection.end failed:: "+err);
+            //context.fail();
+          } else {
+            console.log("DB Connected ended.");
+            //context.done();
+          }
+        });
       }
-    });
+    }
+
+    // Begin the chain
+    connectDB(null, queryDB);
 
     //callback(null);
     //context.done();
-}
+//}
