@@ -12,10 +12,10 @@ var connection = mysql.createConnection({
   database  : mysqlconf.database
 });
 
-//exports.handler = (event, context, callback) => {
+exports.handler = (event, context, callback) => {
     console.log('Loading Lambda Function');
 
-//    console.log('Received event: ', JSON.stringify(event, null, 2));   //DEBUG
+    console.log('Received event: ', JSON.stringify(event, null, 2));   //DEBUG
 
     // Connect to MySQL
     function connectDB(err, callback) {
@@ -58,10 +58,10 @@ var connection = mysql.createConnection({
         connection.end(function(err) {
           if(err) {
             console.log("DB connection.end failed:: "+err);
-            //context.fail();
+            context.fail();
           } else {
             console.log("DB Connected ended.");
-            //context.done();
+            context.done();
           }
         });
       }
