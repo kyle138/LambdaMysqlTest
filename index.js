@@ -43,6 +43,7 @@ exports.handler = (event, context, callback) => {
           if(err) {
             console.log("DB Query error:: "+err);
           } else {
+            console.log("Tables found: "+results.length);
             console.log("Results: "+JSON.stringify(results, null, 2));
             callback(null);
           }
