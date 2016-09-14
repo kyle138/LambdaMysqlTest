@@ -14,13 +14,13 @@ var connection = mysql.createConnection({
 
 var numTables;
 
-exports.handler = (event, context, callback) => {
+exports.handler = (event, context, eventCallback) => {
     console.log('Loading Lambda Function');
 
     console.log('Received event: ', JSON.stringify(event, null, 2));   //DEBUG
 
     // Connect to MySQL
-    function connectDB(err, cb) {
+    function connectDB(err, callback) {
       if(err) {
       console.error("connectDB error: "+err);
       } else {
@@ -30,14 +30,14 @@ exports.handler = (event, context, callback) => {
             //context.fail();
           } else {
             console.log("DB Connected.");
-            cb(null, endDB);
+            callback(null, endDB);
           }
         });
       }
     }
 
     // Query the DB. 'SHOW TABLES' used simply to test connetivity.
-    function queryDB(err, cb) {
+    function queryDB(err, callback) {
       if(err) {
         console.error("queryDB error: "+err);
       } else {
@@ -48,14 +48,14 @@ exports.handler = (event, context, callback) => {
             numTables = results.length;
             console.log("Tables found: "+numTables);
 //            console.log("Results: "+JSON.stringify(results, null, 2));
-            cb(null, rtnNumTables);
+            callback(null, rtnNumTables);
           }
         });
       }
     }
 
     // Close MySQL connection
-    function endDB(err, cb) {
+    function endDB(err, callback) {
       if(err) {
         console.error("endDB error: "+err);
       } else {
@@ -65,14 +65,14 @@ exports.handler = (event, context, callback) => {
             context.fail();
           } else {
             console.log("DB Connected ended.");
-            cb(null, numTables);
+            callback(null, numTables);
           }
         });
       }
     }
 
     // Return the number of tables found
-    function rtnNumTables(err, num, cb) {
+    function rtnNumTables(err, num, callback) {
       if(err) {
         console.error("rtnNumTables error: "+err);
         context.fail(err);
@@ -83,7 +83,7 @@ exports.handler = (event, context, callback) => {
           context.succeed();
         } else {
           console.log("rtnNumTables: num: "+num);
-          callback(null,num);
+          eventCallback(null,num);
           context.succeed();
         }
       }
