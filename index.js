@@ -4,20 +4,21 @@
 var mysqlconf = require('./mysql_config.json');
 
 var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host      : mysqlconf.host,
-  port      : mysqlconf.port,
-  user      : mysqlconf.username,
-  password  : mysqlconf.password,
-  database  : mysqlconf.database
-});
 
 var numTables;
 
 exports.handler = (event, context, callback) => {
     console.log('Loading Lambda Function');
-
     console.log('Received event: ', JSON.stringify(event, null, 2));   //DEBUG
+
+    // Declare MySQL connection within handler to limit container scope
+    var connection = mysql.createConnection({
+      host      : mysqlconf.host,
+      port      : mysqlconf.port,
+      user      : mysqlconf.username,
+      password  : mysqlconf.password,
+      database  : mysqlconf.database
+    });
 
     // Connect to MySQL
     function connectDB(err, cb) {
