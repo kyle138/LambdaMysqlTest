@@ -83,7 +83,7 @@ exports.handler = (event, context, eventCallback) => {
           context.succeed();
         } else {
           console.log("rtnNumTables: num: "+num);
-          //eventCallback(null,num.toString());
+          eventCallback(num);
           context.succeed();
         }
       }
