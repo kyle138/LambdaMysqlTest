@@ -48,7 +48,7 @@ exports.handler = (event, context, eventCallback) => {
             numTables = results.length;
             console.log("Tables found: "+numTables);
 //            console.log("Results: "+JSON.stringify(results, null, 2));
-            callback(null, rtnNumTables);
+            callback(null, numTables);
           }
         });
       }
@@ -89,7 +89,8 @@ exports.handler = (event, context, eventCallback) => {
       }
     }
     // Begin the chain
-    connectDB(null, queryDB);
+    //connectDB(null, queryDB); // Uses mysql connection.connect and connect.end
+    queryDB(null, rtnNumTables);  // Does NOT use mysql connect.connect and connect.end
 
 
     //context.done();
