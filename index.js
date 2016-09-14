@@ -65,6 +65,7 @@ exports.handler = (event, context, callback) => {
             context.fail();
           } else {
             console.log("DB Connected ended.");
+            callback(null, numTables);
           }
         });
       }
@@ -77,9 +78,11 @@ exports.handler = (event, context, callback) => {
         context.fail(err);
       } else {
         if(!num) {
+          console.log("rtnNumTables: !num");
           return null;
           context.succeed(null);
         } else {
+          console.log("rtnNumTables: num: "+num);
           return num;
           context.succeed(num);
         }
