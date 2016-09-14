@@ -48,7 +48,7 @@ exports.handler = (event, context, callback) => {
             numTables = results.length;
             console.log("Tables found: "+numTables);
 //            console.log("Results: "+JSON.stringify(results, null, 2));
-            callback(null);
+            callback(null, rtnNumTables);
           }
         });
       }
@@ -65,12 +65,26 @@ exports.handler = (event, context, callback) => {
             context.fail();
           } else {
             console.log("DB Connected ended.");
-            context.done();
           }
         });
       }
     }
 
+    // Return the number of tables found
+    function rtnNumTables(err, num, callback) {
+      if(err) {
+        console.error("rtnNumTables error: "+err);
+        context.fail(err);
+      } else {
+        if(!num) {
+          return null;
+          context.succeed(null);
+        } else {
+          return num;
+          context.succeed(num);
+        }
+      }
+    }
     // Begin the chain
     connectDB(null, queryDB);
 
