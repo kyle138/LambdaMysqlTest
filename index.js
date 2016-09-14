@@ -92,6 +92,6 @@ exports.handler = (event, context, callback) => {
     //connectDB(null, queryDB); // Uses mysql connection.connect and connect.end
     queryDB(null, rtnNumTables);  // Does NOT use mysql connect.connect and connect.end
 
-
+    callback(null, "EOL");
     //context.done();
 }
