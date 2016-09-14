@@ -5,9 +5,10 @@ var mysqlconf = require('./mysql_config.json');
 
 var mysql = require('mysql');
 
-var numTables;
-
 exports.handler = (event, context, callback) => {
+
+  var numTables;
+
     console.log('Loading Lambda Function');
     console.log('Received event: ', JSON.stringify(event, null, 2));   //DEBUG
 
