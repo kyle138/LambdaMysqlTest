@@ -79,12 +79,12 @@ exports.handler = (event, context, callback) => {
       } else {
         if(!num) {
           console.log("rtnNumTables: !num");
-          callback(null);
-          context.succeed(null);
+          callback(null,'0');
+          context.succeed();
         } else {
           console.log("rtnNumTables: num: "+num);
-          callback(num);
-          context.succeed(num);
+          callback(null,num);
+          context.succeed();
         }
       }
     }
