@@ -25,6 +25,9 @@ exports.handler = (event, context, callback) => {
       password  : process.env.mysql_pass,
       database  : process.env.mysql_database
     });
+
+    // Begin the chain
+    connectDB(null, queryDB); // Uses mysql connection.connect and connect.end
   } else {
     console.error("Missing required environment variable(s)");
     callback("Internal error",null);
@@ -98,7 +101,4 @@ exports.handler = (event, context, callback) => {
     }
   }
 
-  // Begin the chain
-  connectDB(null, queryDB); // Uses mysql connection.connect and connect.end
-
-}
+}; //End exports.handler()
