@@ -1,7 +1,0 @@
-{
-  "host": "hostname",
-  "port": "3306",
-  "username": "username",
-  "password": "supersecretpassword",
-  "database": "databaseName"
-}
